@@ -3,10 +3,8 @@ import sqlite3
 
 app = Flask(__name__)
 
-# Create a basic SQLite database for storing tickets
-def init_db():
-    with sqlite3.connect('bus_tickets.db') as conn:
-        conn.execute('''CREATE TABLE IF NOT EXISTS tickets
+with sqlite3.connect('bus_tickets.db') as conn:
+    conn.execute('''CREATE TABLE IF NOT EXISTS tickets
                         (id INTEGER PRIMARY KEY AUTOINCREMENT, 
                          passenger_name TEXT, 
                          destination TEXT, 
@@ -62,8 +60,3 @@ def search_tickets():
         # Invalid input (not a valid integer), render template with message
         return render_template('bus.html', not_found=True)
 
-
-
-if __name__ == '__main__':
-    init_db()
-    app.run(port=5011) 
